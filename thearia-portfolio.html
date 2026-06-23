@@ -1,0 +1,582 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TheAria — Frontend Developer &amp; UI/UX Designer</title>
+  <meta name="description" content="Portfolio of TheAria, a student web designer and frontend developer crafting fast, accessible, and pleasantly weird digital interfaces." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="thearia-portfolio.css" />
+
+  <!-- Inline favicon با حروف TA -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%230A0A0A%22/><text x=%2216%22 y=%2222%22 font-family=%22monospace%22 font-size=%2214%22 fill=%22%2322E5FF%22 text-anchor=%22middle%22>TA</text></svg>" />
+</head>
+<body>
+
+  <!-- ======================= -->
+  <!-- SVG icon sprite (referenced via <use>) -->
+  <!-- ======================= -->
+  <svg style="display:none" aria-hidden="true">
+    <defs>
+      <!-- Navigation icons -->
+      <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5" /><path d="M5.5 10.5V20h13v-9.5" /><path d="M10 20v-6h4v6" /></symbol>
+      <symbol id="icon-about" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" /><path d="M5 20c0-3.5 3.2-6 7-6s7 2.5 7 6" /></symbol>
+      <symbol id="icon-skills" viewBox="0 0 24 24"><path d="M5 19V10" /><path d="M12 19V5" /><path d="M19 19v-7" /></symbol>
+      <symbol id="icon-portfolio" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12" rx="2" /><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5" /><path d="M3.5 12.5h17" /></symbol>
+      <symbol id="icon-experience" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></symbol>
+      <symbol id="icon-social" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5" /><circle cx="17" cy="6" r="2.5" /><circle cx="17" cy="18" r="2.5" /><path d="M8.2 10.8 14.8 7.2" /><path d="M8.2 13.2 14.8 16.8" /></symbol>
+      <symbol id="icon-contact" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2.2" /><path d="M4.5 7 12 13l7.5-6" /></symbol>
+      <!-- UI icons -->
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16" /><path d="M14 6l6 6-6 6" /></symbol>
+      <symbol id="icon-external" viewBox="0 0 24 24"><path d="M9 6h-3a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3" /><path d="M11 13 20 4" /><path d="M14 4h6v6" /></symbol>
+      <symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" /></symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-7 16-2.5-6.5z" /><path d="M11.5 13.5 20 4" /></symbol>
+      <!-- Social glyphs (solid icons with class="icon-solid") -->
+      <symbol id="icon-github" viewBox="0 0 24 24"><path class="icon-solid" d="M12 3.2c-5 0-9 4-9 9 0 4 2.6 7.4 6.2 8.6.5.1.6-.2.6-.5v-1.9c-2.6.6-3.1-1.1-3.1-1.1-.4-1-1-1.3-1-1.3-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.4-2-.2-4.2-1-4.2-4.5 0-1 .3-1.8 1-2.5-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.5-.3s1.7.1 2.5.3c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.5.6.7 1 1.5 1 2.5 0 3.5-2.2 4.3-4.2 4.5.3.3.6.9.6 1.8v2.6c0 .3.1.6.6.5 3.6-1.2 6.2-4.6 6.2-8.6 0-5-4-9-9-9z"/></symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3" /><path d="M7.8 10.2v6.3" /><circle class="icon-solid" cx="7.8" cy="7.4" r="0.9" /><path d="M11.6 16.5v-3.8c0-1.5 1-2.5 2.3-2.5 1.3 0 2.1 1 2.1 2.5v3.8" /><path d="M11.6 10.2v6.3" /></symbol>
+      <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle class="icon-solid" cx="16.8" cy="7.2" r="1" /></symbol>
+      <symbol id="icon-telegram" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M6.5 12.2 17 7.8 14.2 17l-3-3.4-3.6-1.4z" /><path d="M10.6 13.7 17 7.8" /></symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24"><path d="M5 5l14 14" /><path d="M19 5 5 19" /></symbol>
+      <symbol id="icon-behance" viewBox="0 0 24 24"><rect x="3" y="8.5" width="8" height="7.5" rx="1.5" /><path d="M3 11.8h6" /><path d="M13 16h7.5" /><path d="M13 12.3h6.2" /><path d="M14.6 12.3c.3-1.4 1.5-2.3 3-2.3 1.8 0 3 1.2 3.2 3" /><path d="M14.5 13.5c0 1.7 1.3 2.9 3 2.9 1.3 0 2.3-.6 2.8-1.6" /></symbol>
+      <symbol id="icon-dribbble" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M4.5 9.8c4.6 1.5 9.7 1.5 14.6-.4" /><path d="M9 4.2c2.4 3.4 3.8 7.8 3.6 15.4" /><path d="M5 18.4c2.8-3.6 6.8-5 12.8-3.6" /></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2" /><path d="M4 7 12 13l8-6" /></symbol>
+    </defs>
+  </svg>
+
+  <!-- ======================= -->
+  <!-- Custom cursor (fine pointers only) -->
+  <!-- ======================= -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- ======================= -->
+  <!-- Fixed vertical navigation -->
+  <!-- ======================= -->
+  <nav class="side-nav" aria-label="Section navigation">
+    <a href="#home" class="nav-brand" data-goto="0" aria-label="Back to top">
+      <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+      <span class="brand-name">TA</span>
+    </a>
+
+    <ul class="nav-list" role="list">
+      <li><button class="nav-link is-active" data-goto="0" aria-current="true">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-home"></use></svg>
+        <span class="nav-index">01</span><span class="nav-label">Home</span>
+      </button></li>
+      <li><button class="nav-link" data-goto="1">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-about"></use></svg>
+        <span class="nav-index">02</span><span class="nav-label">About</span>
+      </button></li>
+      <li><button class="nav-link" data-goto="2">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-skills"></use></svg>
+        <span class="nav-index">03</span><span class="nav-label">Skills</span>
+      </button></li>
+      <li><button class="nav-link" data-goto="3">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-portfolio"></use></svg>
+        <span class="nav-index">04</span><span class="nav-label">Portfolio</span>
+      </button></li>
+      <li><button class="nav-link" data-goto="4">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-experience"></use></svg>
+        <span class="nav-index">05</span><span class="nav-label">Experience</span>
+      </button></li>
+      <li><button class="nav-link" data-goto="5">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-social"></use></svg>
+        <span class="nav-index">06</span><span class="nav-label">Social</span>
+      </button></li>
+      <li><button class="nav-link" data-goto="6">
+        <svg class="nav-icon" aria-hidden="true"><use href="#icon-contact"></use></svg>
+        <span class="nav-index">07</span><span class="nav-label">Contact</span>
+      </button></li>
+    </ul>
+
+    <div class="nav-foot">
+      <div class="status-pill"><span class="status-dot"></span>Available for work</div>
+      <div class="local-time"><span id="localTime">--:--</span></div>
+    </div>
+
+    <div class="nav-progress" aria-hidden="true"><span class="nav-progress-fill" id="navProgressFill"></span></div>
+  </nav>
+
+  <!-- ======================= -->
+  <!-- Section viewport – JS translates .sections-track -->
+  <!-- ======================= -->
+  <main class="sections-viewport" id="viewport">
+    <div class="sections-track" id="track">
+
+      <!-- 01 — HOME -->
+      <section class="section hero-section" id="home" data-index="0" aria-label="Home">
+        <div class="section-bg hero-bg" aria-hidden="true">
+          <span class="mesh-blob blob-a"></span>
+          <span class="mesh-blob blob-b"></span>
+          <span class="mesh-blob blob-c"></span>
+          <span class="grid-overlay"></span>
+        </div>
+
+        <div class="section-inner hero-inner no-scrollbar">
+          <div class="hero-grid">
+
+            <div class="hero-copy">
+              <p class="eyebrow"><span class="eyebrow-dot"></span>Hi, I'm TheAria</p>
+
+              <h1 class="hero-title">
+                <span class="reveal-line"><span class="reveal-inner">Crafting digital</span></span>
+                <span class="reveal-line"><span class="reveal-inner">experiences that</span></span>
+                <span class="reveal-line"><span class="reveal-inner">feel <em class="text-gradient">alive</em>.</span></span>
+              </h1>
+
+              <p class="hero-role">
+                <span class="hero-role-prefix">Currently exploring life as a</span>
+                <span class="role-rotator" id="roleRotator" aria-live="polite">
+                  <span class="role-word is-active">Frontend Developer</span>
+                  <span class="role-word">UI/UX Designer</span>
+                  <span class="role-word">Creative Coder</span>
+                  <span class="role-word">CS Student</span>
+                </span>
+              </p>
+
+              <p class="hero-desc">I'm a self-taught developer and design student who likes turning ideas into fast, accessible, and pleasantly weird little interfaces — currently sharpening my craft one pixel and one commit at a time.</p>
+
+              <div class="hero-actions">
+                <button class="btn btn-primary" data-goto="3">
+                  <span>View My Work</span>
+                  <svg class="btn-icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                </button>
+                <button class="btn btn-ghost" data-goto="6"><span>Let's Talk</span></button>
+              </div>
+            </div>
+
+            <div class="hero-visual">
+              <div class="code-card glass">
+                <div class="code-card-head">
+                  <span class="win-dot dot-red"></span><span class="win-dot dot-yellow"></span><span class="win-dot dot-green"></span>
+                  <span class="code-card-title">thearia.dev.js</span>
+                </div>
+                <pre class="code-body"><code id="typedCode"></code><span class="code-cursor" id="codeCursor"></span></pre>
+              </div>
+              <span class="floating-tag tag-a">HTML5</span>
+              <span class="floating-tag tag-b">CSS3</span>
+              <span class="floating-tag tag-c">JS / ES6+</span>
+            </div>
+
+          </div>
+
+          <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-hint-track"><div class="scroll-hint-dot"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 — ABOUT -->
+      <section class="section about-section" id="about" data-index="1" aria-label="About">
+        <div class="section-bg about-bg" aria-hidden="true"><span class="soft-glow glow-purple"></span></div>
+
+        <div class="section-inner about-inner no-scrollbar">
+          <div class="section-head reveal-up">
+            <span class="eyebrow">02 — About</span>
+            <h2 class="section-title">Student. Designer. <span class="text-gradient">Builder.</span></h2>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-portrait reveal-up">
+              <div class="portrait-frame glass">
+                <span class="portrait-glow" aria-hidden="true"></span>
+                <span class="portrait-initials">TA</span>
+              </div>
+              <ul class="about-meta">
+                <li><span>Based in</span><strong>Remote, working worldwide</strong></li>
+                <li><span>Studying</span><strong>B.Sc. Computer Science</strong></li>
+                <li><span>Focus</span><strong>Frontend Dev &amp; UI/UX</strong></li>
+              </ul>
+            </div>
+
+            <div class="about-copy reveal-up">
+              <p>I picked up my first line of HTML at 16, trying to rebuild the homepage of a tiny indie game I loved — badly, at first, but I was hooked. What started as curiosity turned into hundreds of hours of late-night tutorials, broken layouts, and the particular joy of finally centering a <code>div</code>.</p>
+              <p>Today I'm a Computer Science student who treats every project as a small design problem worth obsessing over: the easing curve on a hover state, the contrast ratio on a label, the way a page should feel as much as it should function. My goal is simple — become a frontend engineer who thinks like a designer, then eventually build a small studio of my own.</p>
+
+              <div class="about-stats">
+                <div class="stat">
+                  <span class="stat-value"><span class="stat-num" data-count="2">0</span>+</span>
+                  <span class="stat-label">Years coding</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value"><span class="stat-num" data-count="15">0</span>+</span>
+                  <span class="stat-label">Projects shipped</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value"><span class="stat-num" data-count="3">0</span></span>
+                  <span class="stat-label">Hackathons joined</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value"><span class="stat-num" data-count="100">0</span>%</span>
+                  <span class="stat-label">Curiosity-driven</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 — SKILLS -->
+      <section class="section skills-section" id="skills" data-index="2" aria-label="Skills">
+        <div class="section-bg skills-bg" aria-hidden="true"><span class="soft-glow glow-blue"></span></div>
+
+        <div class="section-inner skills-inner no-scrollbar">
+          <div class="section-head reveal-up">
+            <span class="eyebrow">03 — Skills</span>
+            <h2 class="section-title">Tools I reach for <span class="text-gradient">daily.</span></h2>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-group glass reveal-up">
+              <h3 class="skill-group-title">Development</h3>
+              <div class="skill-row" data-level="95"><div class="skill-row-top"><span>HTML</span><span class="skill-pct">95%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+              <div class="skill-row" data-level="92"><div class="skill-row-top"><span>CSS</span><span class="skill-pct">92%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+              <div class="skill-row" data-level="88"><div class="skill-row-top"><span>JavaScript</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+              <div class="skill-row" data-level="80"><div class="skill-row-top"><span>React</span><span class="skill-pct">80%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+              <div class="skill-row" data-level="90"><div class="skill-row-top"><span>Responsive Design</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+            </div>
+
+            <div class="skill-group glass reveal-up">
+              <h3 class="skill-group-title">Design</h3>
+              <div class="skill-row" data-level="85"><div class="skill-row-top"><span>UI / UX Design</span><span class="skill-pct">85%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+              <div class="skill-row" data-level="88"><div class="skill-row-top"><span>Figma</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+              <div class="skill-row" data-level="78"><div class="skill-row-top"><span>Web Animations</span><span class="skill-pct">78%</span></div><div class="skill-track"><div class="skill-fill"></div></div></div>
+
+              <h3 class="skill-group-title skill-group-title-spaced">Language</h3>
+              <div class="lang-badge">
+                <span class="lang-name">English</span>
+                <span class="lang-level">Fluent · C1</span>
+              </div>
+              <p class="lang-note">Comfortable documenting code, writing UX copy, and collaborating with international teams in English.</p>
+            </div>
+
+            <div class="skill-group glass skill-group-note reveal-up">
+              <h3 class="skill-group-title">Currently leveling up</h3>
+              <p>Three.js fundamentals, advanced GSAP timelines, accessible animation patterns, and shipping production-ready React components.</p>
+              <div class="note-tags">
+                <span>Three.js</span><span>GSAP</span><span>a11y</span><span>Design Systems</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 — PORTFOLIO -->
+      <section class="section portfolio-section" id="portfolio" data-index="3" aria-label="Portfolio">
+        <div class="section-bg portfolio-bg" aria-hidden="true"><span class="soft-glow glow-cyan"></span></div>
+
+        <div class="section-inner portfolio-inner no-scrollbar">
+          <div class="section-head reveal-up portfolio-head">
+            <div>
+              <span class="eyebrow">04 — Portfolio</span>
+              <h2 class="section-title">Selected <span class="text-gradient">work.</span></h2>
+            </div>
+            <div class="portfolio-controls">
+              <button class="carousel-btn" id="prevProject" aria-label="Previous project"><svg aria-hidden="true"><use href="#icon-chevron-left"></use></svg></button>
+              <button class="carousel-btn" id="nextProject" aria-label="Next project"><svg aria-hidden="true"><use href="#icon-chevron-right"></use></svg></button>
+            </div>
+          </div>
+
+          <div class="portfolio-track no-scrollbar" id="portfolioTrack">
+
+            <article class="project-card glass reveal-up">
+              <div class="project-thumb thumb-1">
+                <div class="mock-window">
+                  <div class="mock-topbar"><span></span><span></span><span></span></div>
+                  <div class="mock-body">
+                    <div class="mock-block b-hero"></div>
+                    <div class="mock-block b-line"></div>
+                    <div class="mock-block b-line short"></div>
+                    <div class="mock-block b-btn"></div>
+                  </div>
+                </div>
+                <span class="project-no">01</span>
+              </div>
+              <div class="project-body">
+                <h3>Lumen</h3>
+                <p>A SaaS landing page exploring animated gradient meshes and scroll-driven storytelling.</p>
+                <ul class="project-tags"><li>HTML</li><li>CSS</li><li>GSAP</li></ul>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo <svg aria-hidden="true"><use href="#icon-external"></use></svg></a>
+                  <a href="#" class="project-link">GitHub <svg aria-hidden="true"><use href="#icon-github"></use></svg></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass reveal-up">
+              <div class="project-thumb thumb-2">
+                <div class="mock-window">
+                  <div class="mock-topbar"><span></span><span></span><span></span></div>
+                  <div class="mock-body grid-body">
+                    <div class="mock-block b-card"></div>
+                    <div class="mock-block b-card"></div>
+                    <div class="mock-block b-card wide"></div>
+                    <div class="mock-block b-card"></div>
+                  </div>
+                </div>
+                <span class="project-no">02</span>
+              </div>
+              <div class="project-body">
+                <h3>Pulse</h3>
+                <p>A fitness-tracking dashboard concept with live charts, goal rings, and weekly progress views.</p>
+                <ul class="project-tags"><li>React</li><li>Chart.js</li><li>Figma</li></ul>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo <svg aria-hidden="true"><use href="#icon-external"></use></svg></a>
+                  <a href="#" class="project-link">GitHub <svg aria-hidden="true"><use href="#icon-github"></use></svg></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass reveal-up">
+              <div class="project-thumb thumb-3">
+                <div class="mock-window">
+                  <div class="mock-topbar"><span></span><span></span><span></span></div>
+                  <div class="mock-body">
+                    <div class="mock-block b-nav"></div>
+                    <div class="mock-block b-img"></div>
+                    <div class="mock-block b-line"></div>
+                    <div class="mock-block b-line short"></div>
+                  </div>
+                </div>
+                <span class="project-no">03</span>
+              </div>
+              <div class="project-body">
+                <h3>Northwind Café</h3>
+                <p>A responsive restaurant site with online table booking, built from a Figma file to pixel-accurate code.</p>
+                <ul class="project-tags"><li>Responsive</li><li>JavaScript</li><li>Figma</li></ul>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo <svg aria-hidden="true"><use href="#icon-external"></use></svg></a>
+                  <a href="#" class="project-link">GitHub <svg aria-hidden="true"><use href="#icon-github"></use></svg></a>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card glass reveal-up">
+              <div class="project-thumb thumb-4">
+                <div class="mock-window">
+                  <div class="mock-topbar"><span></span><span></span><span></span></div>
+                  <div class="mock-body">
+                    <div class="mock-block b-sidebar"></div>
+                    <div class="mock-block b-panel"></div>
+                  </div>
+                </div>
+                <span class="project-no">04</span>
+              </div>
+              <div class="project-body">
+                <h3>Aurora UI Kit</h3>
+                <p>A small component library and design system — tokens, variants, and docs, built in Figma and React.</p>
+                <ul class="project-tags"><li>React</li><li>Design Systems</li><li>Storybook</li></ul>
+                <div class="project-links">
+                  <a href="#" class="project-link">Live Demo <svg aria-hidden="true"><use href="#icon-external"></use></svg></a>
+                  <a href="#" class="project-link">GitHub <svg aria-hidden="true"><use href="#icon-github"></use></svg></a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — EXPERIENCE -->
+      <section class="section experience-section" id="experience" data-index="4" aria-label="Experience">
+        <div class="section-bg experience-bg" aria-hidden="true"><span class="soft-glow glow-purple"></span></div>
+
+        <div class="section-inner experience-inner no-scrollbar">
+          <div class="section-head reveal-up">
+            <span class="eyebrow">05 — Experience</span>
+            <h2 class="section-title">The road <span class="text-gradient">so far.</span></h2>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-line" aria-hidden="true"></div>
+
+            <div class="timeline-item reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">Late 2023</span>
+                <h3>First line of code</h3>
+                <p>Started learning HTML &amp; CSS by rebuilding the homepage of an indie game I loved, just to see if I could.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">Spring 2024</span>
+                <h3>JavaScript clicked</h3>
+                <p>Built my first interactive projects — a to-do app, a quiz game — and started actually enjoying debugging.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">Summer 2024</span>
+                <h3>First hackathon win</h3>
+                <p>Took home a "Best UI" award at a local student hackathon for a campus-life companion app.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">Late 2024</span>
+                <h3>Figma certified, first client</h3>
+                <p>Completed an advanced UI/UX certification and shipped my first freelance landing page for a local café.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">2025</span>
+                <h3>React &amp; component thinking</h3>
+                <p>Started my Computer Science degree and rebuilt my workflow around React, design tokens, and reusable components.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item is-now reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">Now</span>
+                <h3>Sharpening motion design</h3>
+                <p>Exploring scroll-driven animation, GSAP, and accessible micro-interactions — this very portfolio is part of that practice.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item is-next reveal-up">
+              <span class="timeline-node"></span>
+              <div class="timeline-card glass">
+                <span class="timeline-date">Next</span>
+                <h3>Looking ahead</h3>
+                <p>Aiming for a frontend internship or junior role where I can learn from a real product team and keep shipping.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 — SOCIAL -->
+      <section class="section social-section" id="social" data-index="5" aria-label="Social links">
+        <div class="section-bg social-bg" aria-hidden="true"><span class="soft-glow glow-cyan"></span></div>
+
+        <div class="section-inner social-inner no-scrollbar">
+          <div class="section-head reveal-up">
+            <span class="eyebrow">06 — Elsewhere</span>
+            <h2 class="section-title">Find me <span class="text-gradient">online.</span></h2>
+          </div>
+
+          <div class="social-grid">
+            <a href="#" class="social-card glass card-featured reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-github"></use></svg>
+              <span class="social-name">GitHub</span>
+              <span class="social-handle">@TheAria · code &amp; experiments</span>
+            </a>
+            <a href="#" class="social-card glass reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-linkedin"></use></svg>
+              <span class="social-name">LinkedIn</span>
+              <span class="social-handle">TheAria</span>
+            </a>
+            <a href="#" class="social-card glass reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-dribbble"></use></svg>
+              <span class="social-name">Dribbble</span>
+              <span class="social-handle">@TheAria</span>
+            </a>
+            <a href="#" class="social-card glass reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-behance"></use></svg>
+              <span class="social-name">Behance</span>
+              <span class="social-handle">/TheAria</span>
+            </a>
+            <a href="#" class="social-card glass reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-instagram"></use></svg>
+              <span class="social-name">Instagram</span>
+              <span class="social-handle">@thearia.codes</span>
+            </a>
+            <a href="#" class="social-card glass reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-x"></use></svg>
+              <span class="social-name">X</span>
+              <span class="social-handle">@TheAriaDev</span>
+            </a>
+            <a href="#" class="social-card glass reveal-up">
+              <svg class="social-icon" aria-hidden="true"><use href="#icon-telegram"></use></svg>
+              <span class="social-name">Telegram</span>
+              <span class="social-handle">@TheAria</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 — CONTACT -->
+      <section class="section contact-section" id="contact" data-index="6" aria-label="Contact">
+        <div class="section-bg contact-bg" aria-hidden="true">
+          <span class="mesh-blob blob-a small"></span>
+          <span class="mesh-blob blob-b small"></span>
+        </div>
+
+        <div class="section-inner contact-inner no-scrollbar">
+          <div class="contact-grid">
+            <div class="contact-intro reveal-up">
+              <span class="eyebrow">07 — Contact</span>
+              <h2 class="section-title">Let's build something <span class="text-gradient">great.</span></h2>
+              <p>Have a project, an opportunity, or just want to talk about clever CSS tricks? My inbox is always open.</p>
+
+              <a href="mailto:hello@thearia.dev" class="contact-email">
+                <svg aria-hidden="true"><use href="#icon-mail"></use></svg>
+                hello@thearia.dev
+              </a>
+
+              <div class="contact-social-row">
+                <a href="#" aria-label="GitHub"><svg aria-hidden="true"><use href="#icon-github"></use></svg></a>
+                <a href="#" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#icon-linkedin"></use></svg></a>
+                <a href="#" aria-label="X (Twitter)"><svg aria-hidden="true"><use href="#icon-x"></use></svg></a>
+                <a href="#" aria-label="Instagram"><svg aria-hidden="true"><use href="#icon-instagram"></use></svg></a>
+              </div>
+            </div>
+
+            <form class="contact-form glass reveal-up" id="contactForm" novalidate>
+              <div class="form-row">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+              </div>
+              <div class="form-row">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" />
+              </div>
+              <div class="form-row">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Tell me about your project..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+                <span class="btn-submit-label">Send Message</span>
+                <svg class="btn-icon" aria-hidden="true"><use href="#icon-send"></use></svg>
+              </button>
+              <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <footer class="site-footer">
+            <p>Designed &amp; built with by TheAria — © 2026. Crafted in HTML, CSS &amp; vanilla JavaScript.</p>
+          </footer>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="./thearia-portfolio.js"></script>
+</body>
+</html>
