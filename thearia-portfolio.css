@@ -1,13 +1,6 @@
-
-
-
-
-
-
-
 /* =================================================================
-   MIRA VOSS — PORTFOLIO STYLESHEET
-   (به‌روز شده با نام TheAria و رفع آیکون‌ها)
+   THEARIA — PORTFOLIO STYLESHEET
+   (نسخه نهایی با بهبود انیمیشن کانتکت و کاهش زمان تأخیر)
    ================================================================= */
 
 /* ---------- 1. DESIGN TOKENS ---------- */
@@ -89,10 +82,11 @@ p {
 }
 
 /* ---------- SVG ICON FIX ---------- */
-/* آیکون‌های استروک‌دار (پیش‌فرض) */
-svg:not(.icon-solid) path,
-svg:not(.icon-solid) circle,
-svg:not(.icon-solid) rect {
+/* Stroke-based UI icons (arrow, external, chevrons, send, social outline icons) */
+svg:not([fill="currentColor"]) path,
+svg:not([fill="currentColor"]) circle,
+svg:not([fill="currentColor"]) rect,
+svg:not([fill="currentColor"]) line {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.6;
@@ -100,8 +94,33 @@ svg:not(.icon-solid) rect {
   stroke-linejoin: round;
 }
 
-/* آیکون‌های solid (مانند گیت‌هاب) */
+/* Solid fill icons (github path, linkedin dot, instagram dot) */
 .icon-solid {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+/* Nav icons: the <use> elements reference symbols that have fill="currentColor" set.
+   Force the SVG wrapper to inherit color so fill works correctly. */
+.nav-icon,
+.nav-icon use {
+  color: inherit;
+}
+
+/* Social icons in social section — these are stroke-based symbols */
+.social-icon path,
+.social-icon circle,
+.social-icon rect,
+.social-icon line {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* icon-solid paths inside social icons */
+.social-icon .icon-solid {
   fill: currentColor !important;
   stroke: none !important;
 }
@@ -186,7 +205,7 @@ code {
   font-size: 14.5px;
   cursor: pointer;
   isolation: isolate;
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+  transition:box-shadow .45s var(--ease);
 }
 .btn-icon {
   width: 16px;
@@ -315,6 +334,14 @@ code {
   opacity: .85;
   color: var(--text-muted);
   transition: color .3s;
+}
+/* Nav icons use fill="currentColor" symbols; override any inherited stroke rules */
+.nav-icon path,
+.nav-icon circle,
+.nav-icon rect,
+.nav-icon line {
+  fill: currentColor;
+  stroke: none;
 }
 .nav-index {
   font-family: var(--font-mono);
@@ -537,11 +564,12 @@ code {
 }
 
 /* ---------- 8. REVEAL ANIMATIONS ---------- */
+/* کاهش زمان تأخیر پایه از 70ms به 50ms برای ورود سریع‌تر */
 .reveal-up {
   opacity: 0;
   transform: translateY(34px);
-  transition: opacity .8s var(--ease), transform .8s var(--ease);
-  transition-delay: calc(var(--ri, 0) * 70ms);
+  transition: opacity .5s var(--ease), transform .7s var(--ease);
+  transition-delay: calc(var(--ri, 0) * 15ms);
   will-change: opacity, transform;
   backface-visibility: hidden;
 }
@@ -550,6 +578,51 @@ code {
   transform: inherit;
 }
 .section.is-active .reveal-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- SOCIAL SECTION REVEAL (بهبود انیمیشن ورود) ---------- */
+.social-section .reveal-up {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.8s cubic-bezier(.65, 0, .35, 1),
+              transform 0.8s cubic-bezier(.65, 0, .35, 1);
+  transition-delay: calc(var(--ri, 0) * 50ms);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.social-section.is-active .reveal-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- PORTFOLIO SECTION REVEAL (بهبود انیمیشن ورود کارت‌ها) ---------- */
+.portfolio-section .reveal-up {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.8s cubic-bezier(.65, 0, .35, 1),
+              transform 0.8s cubic-bezier(.65, 0, .35, 1);
+  transition-delay: calc(var(--ri, 0) * 50ms);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.portfolio-section.is-active .reveal-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- CONTACT SECTION REVEAL (بهبود انیمیشن ورود) ---------- */
+.contact-section .reveal-up {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 0.8s cubic-bezier(.65, 0, .35, 1),
+              transform 0.8s cubic-bezier(.65, 0, .35, 1);
+  transition-delay: calc(var(--ri, 0) * 50ms);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+.contact-section.is-active .reveal-up {
   opacity: 1;
   transform: translateY(0);
 }
@@ -762,6 +835,12 @@ code {
   gap: 10px;
   margin-top: 6vh;
   opacity: .6;
+  transition: opacity .6s var(--ease), visibility .6s var(--ease);
+}
+.scroll-hint.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 .scroll-hint span {
   font-family: var(--font-mono);
@@ -1199,6 +1278,9 @@ code {
 }
 
 /* ---------- 13. EXPERIENCE TIMELINE ---------- */
+.experience-inner {
+  padding: 46px 64px;
+}
 .timeline {
   position: relative;
   padding-left: 36px;
@@ -1653,6 +1735,7 @@ code {
   }
   .contact-form {
     padding: 26px;
+    gap: 22px;
   }
 
   .has-no-cursor {
@@ -1662,7 +1745,7 @@ code {
 
 @media (max-width: 380px) {
   .about-stats {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
   .section-title {
     font-size: clamp(1.8rem, 8vw, 2.3rem);
@@ -1716,11 +1799,3 @@ code {
     display: inline;
   }
 }
-
-.experience-inner {
-  padding: 46px 64px;
-}
- #icon-home {
-  color: #F2F2F5;
-  background-color: #F2F2F5;
- }

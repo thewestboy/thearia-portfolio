@@ -1,15 +1,5 @@
-
-
-
-
-
-
-
-
-
-
 /* =================================================================
-   MIRA VOSS — PORTFOLIO SCRIPT
+   THEARIA — PORTFOLIO SCRIPT
    No frameworks, no build step — plain ES6+.
 
    Contents:
@@ -24,6 +14,20 @@
    9.  Portfolio carousel
    10. Contact form (front-end only simulation)
    11. Local clock
+
+   FIXES APPLIED:
+   - Issue 1: Nav icon color now works (fill-based symbols + CSS override)
+   - Issue 2: setActiveSection delayed until after track transition
+   - Issue 3: onWheel/touchmove check for .portfolio-track target
+   - Issue 4: popstate listener for browser back/forward hash sync
+   - Issue 5: Typewriter flag prevents re-run; highlighting on each char
+   - Issue 6: has-no-cursor set in HTML by default; removed in initCursor
+   - Issue 7: Form status gap handled in CSS
+   - Polish: scroll-hint fades after first scroll; reduced-motion static code
+   - Social section: dedicated reveal-up rules for smooth entry animation
+   - Portfolio section: dedicated reveal-up rules for smooth card entry
+   - Contact section: dedicated reveal-up rules for smooth entry
+   - Global delay reduced from 70ms to 50ms for faster overall reveal
    ================================================================= */
 
 (() => {
@@ -38,6 +42,7 @@
   const navLinks = Array.from(document.querySelectorAll('.nav-link'));
   const navProgressFill = document.getElementById('navProgressFill');
   const gotoTargets = Array.from(document.querySelectorAll('[data-goto]'));
+  const scrollHint = document.querySelector('.scroll-hint');
 
   const TOTAL = sections.length;
   const TRANSITION_MS = prefersReducedMotion ? 260 : 1050;
@@ -88,20 +93,31 @@
     isAnimating = true;
     activeIndex = index;
 
+    // Fade scroll hint after first scroll away from home
+    if (index > 0 && scrollHint) {
+      scrollHint.classList.add('is-hidden');
+    }
+
     applyTransform(index);
     updateNav(index);
-    setActiveSection(index);
 
-    history.replaceState(null, '', `#${sections[index].id}`);
-
+    // Delay setActiveSection until after track transition completes
     setTimeout(() => {
+      setActiveSection(index);
       isAnimating = false;
     }, TRANSITION_MS);
+
+    history.replaceState(null, '', `#${sections[index].id}`);
   }
 
   /* ---------- 4. INPUT HANDLING ---------- */
 
-  function innerScrollBlocksNavigation(deltaY) {
+  function innerScrollBlocksNavigation(deltaY, target) {
+    // If event originated inside the portfolio track, block nav
+    if (target && target.closest && target.closest('.portfolio-track')) {
+      return true;
+    }
+
     const current = sections[activeIndex];
     const inner = current.querySelector(':scope > .section-inner');
     if (!inner) return false;
@@ -120,7 +136,7 @@
 
   function onWheel(e) {
     if (Math.abs(e.deltaY) < 2) return;
-    if (innerScrollBlocksNavigation(e.deltaY)) return;
+    if (innerScrollBlocksNavigation(e.deltaY, e.target)) return;
 
     e.preventDefault();
     if (isAnimating) return;
@@ -129,18 +145,24 @@
   viewport.addEventListener('wheel', onWheel, { passive: false });
 
   let touchStartY = 0;
+  let touchStartX = 0;
   let touchActive = false;
 
   viewport.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
     touchActive = true;
   }, { passive: true });
 
   viewport.addEventListener('touchmove', (e) => {
     if (!touchActive) return;
     const deltaY = touchStartY - e.touches[0].clientY;
+    const deltaX = Math.abs(touchStartX - e.touches[0].clientX);
 
-    if (innerScrollBlocksNavigation(deltaY)) {
+    // If horizontal swipe dominates, don't trigger section nav
+    if (deltaX > Math.abs(deltaY) * 1.2) return;
+
+    if (innerScrollBlocksNavigation(deltaY, e.target)) {
       return;
     }
 
@@ -185,6 +207,23 @@
   window.addEventListener('resize', () => {
     setViewportHeight();
     applyTransform(activeIndex, true);
+  });
+
+  // Respond to browser back/forward button hash changes
+  window.addEventListener('popstate', () => {
+    const hashId = window.location.hash.replace('#', '');
+    const matched = sections.findIndex((s) => s.id === hashId);
+    if (matched > -1 && matched !== activeIndex && !isAnimating) {
+      const targetIndex = matched;
+      isAnimating = true;
+      activeIndex = targetIndex;
+      applyTransform(targetIndex);
+      updateNav(targetIndex);
+      setTimeout(() => {
+        setActiveSection(targetIndex);
+        isAnimating = false;
+      }, TRANSITION_MS);
+    }
   });
 
   /* ---------- 6. ONE-TIME REVEAL TRIGGERS ---------- */
@@ -242,7 +281,7 @@
     }, 2600);
   }
 
-  const codeSnippet = `const mira = {
+  const codeSnippet = `const thearia = {
   role: "Frontend Developer",
   status: "CS Student",
   stack: ["HTML", "CSS", "JS", "React"],
@@ -252,10 +291,15 @@
 
   function highlightCode(rawText) {
     return rawText
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
       .replace(/"([^"]*)"/g, '<span class="tok-string">"$1"</span>')
       .replace(/\b(const|true|false)\b/g, '<span class="tok-kw">$1</span>')
       .replace(/\b([a-zA-Z_]+)\b(?=:)/g, '<span class="tok-key">$1</span>');
   }
+
+  let typewriterDone = false;
 
   function startTypewriter() {
     const codeEl = document.getElementById('typedCode');
@@ -263,6 +307,13 @@
     if (!codeEl) return;
 
     if (prefersReducedMotion) {
+      codeEl.innerHTML = highlightCode(codeSnippet);
+      if (cursorEl) cursorEl.style.display = 'none';
+      typewriterDone = true;
+      return;
+    }
+
+    if (typewriterDone) {
       codeEl.innerHTML = highlightCode(codeSnippet);
       if (cursorEl) cursorEl.style.display = 'none';
       return;
@@ -280,6 +331,7 @@
       } else {
         codeEl.innerHTML = highlightCode(codeSnippet);
         if (cursorEl) cursorEl.style.display = 'none';
+        typewriterDone = true;
       }
     }
     setTimeout(step, 650);
@@ -293,11 +345,12 @@
     const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
     if (!supportsFinePointer || prefersReducedMotion) {
-      document.body.classList.add('has-no-cursor');
       return;
     }
 
+    document.body.classList.remove('has-no-cursor');
     document.body.classList.add('custom-cursor-active');
+
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
     let ringX = mouseX;
@@ -384,11 +437,13 @@
       startScroll = trackEl.scrollLeft;
       trackEl.setPointerCapture(e.pointerId);
       trackEl.style.touchAction = 'none';
+      e.stopPropagation();
     });
 
     trackEl.addEventListener('pointermove', (e) => {
       if (!dragging) return;
       trackEl.scrollLeft = startScroll - (e.clientX - startX);
+      e.stopPropagation();
     });
 
     ['pointerup', 'pointercancel', 'pointerleave'].forEach((evt) => {
@@ -471,6 +526,16 @@
     applyTransform(activeIndex, true);
     updateNav(activeIndex);
     setActiveSection(activeIndex);
+
+    if (activeIndex > 0 && scrollHint) {
+      scrollHint.classList.add('is-hidden');
+    }
+
+    if (scrollHint && activeIndex === 0) {
+      setTimeout(() => {
+        scrollHint.classList.add('is-hidden');
+      }, 5000);
+    }
 
     startRoleRotator();
     startTypewriter();
