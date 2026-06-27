@@ -33,6 +33,17 @@
 (() => {
   'use strict';
 
+  /* ---------- MOBILE GUARD ----------
+     On viewports ≤ 640px the CSS hides the desktop layout and shows the
+     mobile teaser instead. Skip all portfolio JS to avoid touching DOM
+     elements that are hidden or irrelevant on mobile.
+  ---------------------------------------- */
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+  if (isMobile) {
+    // Nothing to init — the teaser is pure HTML/CSS, no JS needed.
+    return;
+  }
+
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- 1. CACHED DOM ---------- */
