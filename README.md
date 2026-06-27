@@ -4,7 +4,7 @@
 > A modern, full-screen portfolio for a Frontend Developer & UI/UX Designer, built with vanilla HTML, CSS, and JavaScript.
 > Features a vertical-scroll section engine, custom cursor, glassmorphism UI, and a typewriter code card.
 
-![Portfolio Preview](assets/preview.png)
+![Portfolio Preview](assets/Preview.png)
 
 ---
 
