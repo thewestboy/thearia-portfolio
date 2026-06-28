@@ -129,7 +129,7 @@ svg:not([fill="currentColor"]) line {
 svg {
   color: inherit;
   flex-shrink: 0;
-  width: 20px;
+  width: 26px;
   height: 20px;
 }
 
@@ -215,10 +215,11 @@ code {
 .btn-primary {
   color: #0A0A0A;
   background: var(--gradient-main);
-  box-shadow: 0 6px 20px -8px rgba(168, 85, 247, .55);
+  box-shadow: 0 8px 30px -8px rgba(168, 85, 247, .55);
 }
 .btn-primary:hover {
-  box-shadow: 0 0px 30px -8px rgba(34, 229, 255, .55);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px -8px rgba(34, 229, 255, .55);
 }
 .btn-primary:hover .btn-icon {
   transform: translateX(4px);
@@ -469,7 +470,7 @@ code {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 64px 64px;
+  padding: 0 64px;
   max-height: 100%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -1086,7 +1087,7 @@ code {
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 60px;
+  padding-bottom: 8px;
   cursor: grab;
   touch-action: pan-x;
 }
@@ -1101,6 +1102,7 @@ code {
 }
 .project-card:hover {
   transform: translateY(-8px);
+  box-shadow: 0 26px 50px -22px rgba(34, 229, 255, .25);
   border-color: rgba(255, 255, 255, .2);
 }
 .project-thumb {
@@ -1347,67 +1349,167 @@ code {
 }
 
 /* ---------- 14. SOCIAL ---------- */
-.social-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-.social-card {
+/* ---------- 14. SOCIAL — ROSTER REDESIGN ---------- */
+.sl-shell {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 26px 22px;
-  position: relative;
-  overflow: hidden;
-  transition: transform .45s var(--ease), border-color .45s, box-shadow .45s;
+  align-items: flex-start;
+  gap: 28px;
+  width: 100%;
 }
-.social-card::after {
+
+.sl-tagline {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--text-faint);
+  letter-spacing: .03em;
+  text-align: center;
+  margin: 0;
+}
+
+.sl-roster {
+  /* glassmorphism container */
+  width: 100%;
+  max-width: 560px;
+  border-radius: 20px;
+  border: 1px solid var(--border-glass);
+  background: rgba(255, 255, 255, 0.032);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow: hidden;
+  /* subtle top edge glow */
+  box-shadow:
+    0 0 0 1px rgba(34, 229, 255, .055) inset,
+    0 28px 60px -28px rgba(0, 0, 0, .55);
+}
+
+.sl-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 26px;
+  text-decoration: none;
+  color: var(--text-primary);
+  position: relative;
+  transition: transform .32s var(--ease), color .25s var(--ease), background .25s;
+  /* stagger via custom property set by JS if needed, otherwise fine as is */
+}
+
+.sl-item::before {
+  /* left accent bar that slides in on hover */
   content: '';
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 14%;
+  height: 72%;
+  width: 2px;
+  background: var(--cyan-glow);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px var(--cyan-glow);
   opacity: 0;
-  background: var(--gradient-soft);
-  transition: opacity .45s;
-  pointer-events: none;
+  transform: scaleY(.4);
+  transition: opacity .28s var(--ease), transform .28s var(--ease);
 }
-.social-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, .22);
-  box-shadow: 0 20px 40px -22px rgba(46, 111, 255, .4);
+
+.sl-item:hover {
+  transform: translateX(3px);
+  color: var(--cyan-glow);
+  background: rgba(34, 229, 255, .038);
 }
-.social-card:hover::after {
+
+.sl-item:hover::before {
   opacity: 1;
+  transform: scaleY(1);
 }
+
+.sl-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding-right: 6px;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color .25s var(--ease);
+}
+
+.sl-item:hover .sl-icon {
+  color: var(--cyan-glow);
+}
+
+.sl-platform {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.975rem;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  min-width: 82px;
+}
+
+.sl-sep {
+  /* thin dot separator between platform and handle */
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex-shrink: 0;
+  opacity: .55;
+  transition: background .25s;
+}
+
+.sl-item:hover .sl-sep {
+  background: var(--cyan-glow);
+}
+
+.sl-handle {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  flex: 1;
+  transition: color .25s var(--ease);
+  letter-spacing: .02em;
+}
+
+.sl-item:hover .sl-handle {
+  color: rgba(34, 229, 255, .75);
+}
+
+.sl-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-faint);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .28s var(--ease), transform .28s var(--ease), color .25s;
+}
+
+.sl-item:hover .sl-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--cyan-glow);
+}
+
+.sl-divider {
+  display: block;
+  height: 1px;
+  margin: 0 26px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-glass) 15%,
+    rgba(34, 229, 255, .08) 50%,
+    var(--border-glass) 85%,
+    transparent 100%
+  );
+}
+
+/* Keep old .social-icon stroke rules untouched for any lingering refs */
 .social-icon {
   width: 24px;
   height: 24px;
   color: var(--cyan-glow);
-  position: relative;
-  z-index: 1;
-}
-.social-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.05rem;
-  position: relative;
-  z-index: 1;
-}
-.social-handle {
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  color: var(--text-faint);
-  position: relative;
-  z-index: 1;
-}
-.card-featured {
-  grid-column: span 2;
-  flex-direction: row;
-  align-items: center;
-  gap: 18px;
-}
-.card-featured .social-icon {
-  width: 34px;
-  height: 34px;
 }
 
 /* ---------- 15. CONTACT + FOOTER ---------- */
@@ -1602,10 +1704,10 @@ code {
     grid-column: span 2;
   }
   .social-grid {
-    grid-template-columns: repeat(3, 1fr);
+    /* legacy — no longer used */
   }
   .card-featured {
-    grid-column: span 3;
+    /* legacy — no longer used */
   }
   .contact-grid {
     grid-template-columns: 1fr;
